@@ -8,7 +8,7 @@ I am forking Arturo's version of playModes in order to start hacking Maximilian 
 
 
 Addons needed are:
-- ofxMaxim -> https://github.com/micknoise/Maximilian/tree/master/ofxMaxim
+- ofxMaxim -> https://github.com/JoshuaBatty/Maximilian
 - ofxDspChain -> https://github.com/jonbro/ofxDspChain
 - ofxUI -> https://github.com/rezaali/ofxUI
 - ofxXmlSettings
