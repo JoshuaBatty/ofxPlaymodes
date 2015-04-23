@@ -1,4 +1,0 @@
-ofxXmlSettings
-ofxMaxim
-ofxPlaymodes
-ofxUI

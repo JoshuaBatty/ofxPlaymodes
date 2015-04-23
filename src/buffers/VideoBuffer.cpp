@@ -131,7 +131,7 @@ void VideoBuffer::setFramePos(float posPerc) {
     int diff = ofWrap(framePos-lastVal, 0, size());
     if(diff>1 && lastVal <= framePos){
         for(int i = lastVal; i < lastVal+diff; i++){
-            cout << "FRAMEPOS = " << framePos << " -- " << "LAST VAL = " << lastVal << " -- " << "DIFF = " << diff << " -- " << "LAST VAL + DIFF = " << lastVal+diff << " -- " << "framePos - lastVal = " << framePos - lastVal << endl;
+           // cout << "FRAMEPOS = " << framePos << " -- " << "LAST VAL = " << lastVal << " -- " << "DIFF = " << diff << " -- " << "LAST VAL + DIFF = " << lastVal+diff << " -- " << "framePos - lastVal = " << framePos - lastVal << endl;
 
             frames[ofWrap(i,0,size())] = frames[lastVal];
         }
