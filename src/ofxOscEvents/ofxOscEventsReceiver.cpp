@@ -19,12 +19,12 @@ ofxOscEventsReceiver::~ofxOscEventsReceiver(){
 
 }
 
-void ofxOscEventsReceiver::ProcessMessage( const osc::ReceivedMessage &m, const IpEndpointName& remoteEndpoint )
+void ofxOscEventsReceiver::ProcessMessage( const osc::ReceivedMessage &m, const osc::IpEndpointName& remoteEndpoint )
 {
 	ofxOscReceiver::ProcessMessage(m,remoteEndpoint);
 	
 	ofxOscMessage message;
-	getNextMessage(&message);
+	getNextMessage(message);
 	ofNotifyEvent(newOscMessage,message);
 }
 }

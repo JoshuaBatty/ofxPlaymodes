@@ -34,7 +34,7 @@ public:
 	:pixelsChanged(false)
 	,createdTexPixels(false)
 	{
-		pixels.allocate(videoFrame.getWidth(),videoFrame.getHeight(),ofGetImageTypeFromGLType(videoFrame.texData.glTypeInternal));
+		pixels.allocate(videoFrame.getWidth(),videoFrame.getHeight(),ofGetImageTypeFromGLType(videoFrame.texData.glInternalFormat));
 		updateTexture(videoFrame);
 		total_num_frames++;
 	}
@@ -42,14 +42,14 @@ public:
 	:pixelsChanged(false)
 	,createdTexPixels(false)
 	{
-		pixels.allocate(videoFrame.getWidth(),videoFrame.getHeight(),ofGetImageTypeFromGLType(videoFrame.getTextureReference().texData.glTypeInternal));
+		pixels.allocate(videoFrame.getWidth(),videoFrame.getHeight(),ofGetImageTypeFromGLType(videoFrame.ofBaseHasTexture::getTexture().texData.glInternalFormat));
 		updateTexture(videoFrame);
 		total_num_frames++;
 	}
 
 	void updateTexture(ofTexture & videoFrame){
 		if(!fbo.isAllocated()){
-			fbo.allocate(videoFrame.getWidth(),videoFrame.getHeight(),videoFrame.texData.glTypeInternal);
+			fbo.allocate(videoFrame.getWidth(),videoFrame.getHeight(),videoFrame.texData.glInternalFormat);
 		}
 		fbo.begin();
 		videoFrame.bind();
@@ -71,12 +71,12 @@ public:
 
 	void updateTexture(ofFbo & videoFrame){
 		if(!fbo.isAllocated()){
-			fbo.allocate(videoFrame.getWidth(),videoFrame.getHeight(),videoFrame.getTextureReference().texData.glTypeInternal);
+			fbo.allocate(videoFrame.getWidth(),videoFrame.getHeight(),videoFrame.getTexture().texData.glInternalFormat);
 		}
 		videoFrame.bind();
 		glReadBuffer(GL_COLOR_ATTACHMENT0);
-		glBindTexture(fbo.getTextureReference().texData.textureTarget, (GLuint)fbo.getTextureReference().texData.textureID);
-		glCopyTexImage2D(fbo.getTextureReference().texData.textureTarget,0,fbo.getTextureReference().texData.glTypeInternal,0,0,fbo.getWidth(),fbo.getHeight(),0);
+		glBindTexture(fbo.getTexture().texData.textureTarget, (GLuint)fbo.getTexture().texData.textureID);
+		glCopyTexImage2D(fbo.getTexture().texData.textureTarget,0,fbo.getTexture().texData.glInternalFormat,0,0,fbo.getWidth(),fbo.getHeight(),0);
 		videoFrame.unbind();
 		glReadBuffer(GL_BACK);
 	}
@@ -191,10 +191,10 @@ public:
 
 	ofTexture & VideoFrame::getTextureRef(){
 		if(data->pixelsChanged){
-			getFboRef().getTextureReference().loadData(data->pixels);
+			getFboRef().getTexture().loadData(data->pixels);
 			data->pixelsChanged = false;
 		}
-		return getFboRef().getTextureReference();
+		return getFboRef().getTexture();
 	}
 
 	ofFbo & VideoFrame::getFboRef(){

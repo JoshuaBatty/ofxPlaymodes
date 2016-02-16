@@ -9,7 +9,6 @@
 #define FRAME_H_
 
 #include "pmUtils.h"
-#include "ofxObjCPointer.h"
 
 namespace ofxPm{
 class Frame {
