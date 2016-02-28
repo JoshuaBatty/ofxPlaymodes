@@ -27,15 +27,17 @@ VideoBuffer::VideoBuffer(){
 }
 
 
-void VideoBuffer::setup(VideoSource & source, int size, bool allocateOnSetup){
+void VideoBuffer::setup(VideoSource & source, int size, bool isTracer, bool allocateOnSetup){
 	this->source=&source;
+    this->isTracer = isTracer;
 	totalFrames=0;
 	maxSize = size;
 	if(allocateOnSetup){
 		for(int i=0;i<size;i++){
 			VideoFrame videoFrame = VideoFrame::newVideoFrame(source.getNextVideoFrame().getPixelsRef());
 			videoFrame.getTextureRef();
-			newVideoFrame(videoFrame);
+            if(!isTracer) newVideoFrame(videoFrame);
+            else newVideoFrameTracer(videoFrame);
 		}
 	}
 	resume();
@@ -47,8 +49,8 @@ VideoBuffer::~VideoBuffer() {
 }
 
     
-   /*
-void VideoBuffer::newVideoFrame(VideoFrame & frame){
+  
+void VideoBuffer::newVideoFrameTracer(VideoFrame & frame){
     int64_t time = frame.getTimestamp().epochMicroseconds();
     if(microsOneSec==-1) microsOneSec=time;
     framesOneSec++;
@@ -72,7 +74,8 @@ void VideoBuffer::newVideoFrame(VideoFrame & frame){
     newFrameEvent.notify(this,frame);
     
 }
- */
+  
+    
 //////////////////////////////////////////////////////////////////////////////
 void VideoBuffer::newVideoFrame(VideoFrame & frame){
     
@@ -105,7 +108,7 @@ void VideoBuffer::newVideoFrame(VideoFrame & frame){
     //timeMutex.unlock();
     newFrameEvent.notify(this,frame);
 }
-    
+
      
 // This function sets the position in the videoBuffer to write new frames to
 // Is being driven by the normalized record position of the Maxi sample so the 2 are synchronised
@@ -325,13 +328,15 @@ void VideoBuffer::draw(int _x, int _y, int _w, int _h){
 
 
 void VideoBuffer::stop(){
-	ofRemoveListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrame);
+	if(!isTracer) ofRemoveListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrame);
+    else ofRemoveListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrameTracer);
     stopped = true;
 	
 }
 
 void VideoBuffer::resume(){
-	ofAddListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrame);
+    if(!isTracer) ofAddListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrame);
+    else ofAddListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrameTracer);
     stopped = false;
 }
 

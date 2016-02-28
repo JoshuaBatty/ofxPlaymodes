@@ -32,7 +32,7 @@ public:
 	VideoBuffer();
 	virtual ~VideoBuffer();
 
-	void setup(VideoSource & source, int size, bool allocateOnSetup=false);
+	void setup(VideoSource & source, int size, bool isTracer=false, bool allocateOnSetup=false);
 
     // of working in threaded mode,
     // call buffer->lock() buffer->unlock()
@@ -56,6 +56,7 @@ public:
 
 
 	virtual void newVideoFrame(VideoFrame &frame);  // for notification of new frame event
+    virtual void newVideoFrameTracer(VideoFrame &frame);  // for notification of new frame event // tracer version
 
 	unsigned int size();                            // total size of the buffer
 	unsigned int getMaxSize();                         // max size of the buffer
@@ -86,6 +87,7 @@ protected:
 
     VideoSource* source;
 
+    bool isTracer;
     bool stopped;
     unsigned int maxSize;
     int framesOneSec;

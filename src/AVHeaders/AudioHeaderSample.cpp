@@ -148,7 +148,7 @@ namespace ofxPm
 			ofSetColor(255,0,0);
 		}
 		ofLine(currentLength+PMDRAWSPACING,PMDRAWELEMENTSY+10-audioBuffDrawPos,currentLength+PMDRAWSPACING,PMDRAWELEMENTSY+10-audioBuffDrawPos+60);
-		ofRect(PMDRAWSPACING,PMDRAWELEMENTSY,-100,10);
+		ofDrawRectangle(PMDRAWSPACING,PMDRAWELEMENTSY,-100,10);
 		// we draw the lines of the crossfade area
 		ofSetColor(64,128,128);
 		ofSetLineWidth(1.0);

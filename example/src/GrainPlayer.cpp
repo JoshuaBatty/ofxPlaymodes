@@ -50,7 +50,7 @@ void GrainPlayer::setup(){
     
     //Maxi
     samp.load(ofToDataPath("400Frames(60fps).wav"));
-    sampFile.load(ofToDataPath("Video/Josh_AVGS_demo.wav"));
+    sampFile.load(ofToDataPath("/Users/josh/Desktop/Media/Custom_Content/MindBuffer_Elsewhere.wav"));
     ps1 = new maxiPitchStretch<gaussianWinFunctor>(&samp);
     ps2 = new maxiPitchStretch<cosineWinFunctor>(&samp);
     ps3 = new maxiPitchStretch<triangleWinFunctor>(&samp);
@@ -150,19 +150,19 @@ void GrainPlayer::audioRequested (float * output, int numFrames, int nChannels)
         
         switch (grainEnv) {
             case 1:
-                wave = ps1->play(&windowAmp, grainPitch, speed, grainLength, (int)overlaps);
+                wave = ps1->play(grainPitch, speed, grainLength, (int)overlaps);
                 break;
             case 2:
-                wave = ps2->play(&windowAmp, grainPitch, speed, grainLength, (int)overlaps);
+                wave = ps2->play(grainPitch, speed, grainLength, (int)overlaps);
                 break;
             case 3:
-                wave = ps3->play(&windowAmp, grainPitch, speed, grainLength, (int)overlaps);
+                wave = ps3->play(grainPitch, speed, grainLength, (int)overlaps);
                 break;
             case 4:
-                wave = ps4->play(&windowAmp, grainPitch, speed, grainLength, (int)overlaps);
+                wave = ps4->play(grainPitch, speed, grainLength, (int)overlaps);
                 break;
             case 5:
-                wave = ps5->play(&windowAmp, grainPitch, speed, grainLength, (int)overlaps);
+                wave = ps5->play(grainPitch, speed, grainLength, (int)overlaps);
                 break;
         }
         

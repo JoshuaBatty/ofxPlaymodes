@@ -130,7 +130,7 @@ namespace ofxPm{
 		for(int i=0;i<size();i++){
 			ofSetColor(0,120,255);
 			// draw wave
-			if(i%2==0) ofRect((oneLength*i)+PMDRAWSPACING,650-frames[i].getAverageValue()*150,oneLength*2,(frames[i].getAverageValue()*450+1));
+			if(i%2==0) ofDrawRectangle((oneLength*i)+PMDRAWSPACING,650-frames[i].getAverageValue()*150,oneLength*2,(frames[i].getAverageValue()*450+1));
 			// draw grid
 			float X = fmod(i,source->getFps());
 			if(X<1.0)

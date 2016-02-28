@@ -42,7 +42,7 @@ public:
 	:pixelsChanged(false)
 	,createdTexPixels(false)
 	{
-		pixels.allocate(videoFrame.getWidth(),videoFrame.getHeight(),ofGetImageTypeFromGLType(videoFrame.ofBaseHasTexture::getTexture().texData.glInternalFormat));
+		pixels.allocate(videoFrame.getWidth(),videoFrame.getHeight(),ofGetImageTypeFromGLType(videoFrame.getTexture().texData.glInternalFormat));
 		updateTexture(videoFrame);
 		total_num_frames++;
 	}
@@ -65,7 +65,7 @@ public:
 		mesh.addVertex(ofVec3f(0,videoFrame.getHeight()));
 		mesh.draw();
 		videoFrame.unbind();
-		fbo.end();
+		fbo.end();        
 	}
 
 

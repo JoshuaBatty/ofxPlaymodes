@@ -28,7 +28,7 @@ void PlayModes::setup(){
 	vGrabber.setDesiredFrameRate(30);
 	vGrabber.initGrabber(640,480);
 
-    player.loadMovie("/Users/josh/Documents/Software/openFrameworks/2012/of_v0.8.0_osx_release/addons/ofxPlaymodes/example_PlayModes_Maxim_vidDelays/bin/data/Video/Josh_AVGS_demo.mov");
+    player.load("/Users/josh/Desktop/Media/Custom_Content/MindBuffer_Elsewhere.mpv");
     player.play();
     player.setVolume(0.0);
 
@@ -51,7 +51,7 @@ void PlayModes::setup(){
 //--------------------------------------------------------------
 void PlayModes::loadVideo(string _path){
     player.close();
-    player.loadMovie(_path);
+    player.load(_path);
     player.play();
 //    player.setPosition(ofRandomuf());
     player.setVolume(0.0);

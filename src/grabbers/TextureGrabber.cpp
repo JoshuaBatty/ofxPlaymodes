@@ -21,7 +21,7 @@ namespace ofxPm{
     }
     
     VideoFrame TextureGrabber::getNextVideoFrame(){
-        return VideoFrame::newVideoFrame(getTextureReference());
+        return VideoFrame::newVideoFrame(getTexture());
     }
     
     void TextureGrabber::update(){
