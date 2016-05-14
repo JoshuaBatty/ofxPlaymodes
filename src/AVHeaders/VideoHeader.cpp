@@ -78,9 +78,9 @@ void VideoHeader::draw(){
 		
 	// draw in & out lines
 	ofSetLineWidth(1.0);
-	ofLine(inPos,PMDRAWELEMENTSY+10,inPos,PMDRAWELEMENTSY+60);
-    ofLine(outPos,PMDRAWELEMENTSY+10,outPos,PMDRAWELEMENTSY+60);
-	ofLine(inPos,PMDRAWELEMENTSY+60,outPos,PMDRAWELEMENTSY+60);
+	ofDrawLine(inPos,PMDRAWELEMENTSY+10,inPos,PMDRAWELEMENTSY+60);
+    ofDrawLine(outPos,PMDRAWELEMENTSY+10,outPos,PMDRAWELEMENTSY+60);
+	ofDrawLine(inPos,PMDRAWELEMENTSY+60,outPos,PMDRAWELEMENTSY+60);
 	// draw inPos triangle
 	ofBeginShape();
 		ofVertex(inPos,PMDRAWELEMENTSY+10);

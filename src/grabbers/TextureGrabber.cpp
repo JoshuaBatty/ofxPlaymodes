@@ -26,9 +26,8 @@ namespace ofxPm{
     
     void TextureGrabber::update(){
     
-        VideoFrame frame = getNextVideoFrame();
+        frame = getNextVideoFrame();
         newFrameEvent.notify(this,frame);
-        
     }
     
     float TextureGrabber::getFps(){

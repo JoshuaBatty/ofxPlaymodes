@@ -48,6 +48,14 @@ VideoBuffer::~VideoBuffer() {
 
 }
 
+void VideoBuffer::setSize(int numFrames){
+    maxSize = numFrames;
+    for(int i=0;i<numFrames;i++){
+        VideoFrame videoFrame = VideoFrame::newVideoFrame(source->getNextVideoFrame().getPixelsRef());
+        videoFrame.getTextureRef();
+        newVideoFrame(videoFrame);
+    }
+}
     
   
 void VideoBuffer::newVideoFrameTracer(VideoFrame & frame){
@@ -114,6 +122,7 @@ void VideoBuffer::newVideoFrame(VideoFrame & frame){
 // Is being driven by the normalized record position of the Maxi sample so the 2 are synchronised
     
 void VideoBuffer::setFramePos(float posPerc) {
+    
     float outVal = posPerc * (float)(size()-1);    // convert percentage to numFrames
     float tempVal = floor(outVal+0.5);             // used to round float to next int
     
@@ -141,7 +150,6 @@ void VideoBuffer::setFramePos(float posPerc) {
     }
 
     lastVal = framePos;   // Store the last truncated integer
-    
 }
 
 
@@ -248,7 +256,7 @@ void VideoBuffer::draw(){
     if(stopped) ofSetColor(255,0,0);
 	else ofSetColor(255);
 	
-	ofLine(0+PMDRAWSPACING,drawBufferY,length,drawBufferY);
+	ofDrawLine(0+PMDRAWSPACING,drawBufferY,length,drawBufferY);
 	
 	ofSetColor(255);
 	
@@ -279,7 +287,7 @@ void VideoBuffer::draw(){
 			ofSetLineWidth(1.0);
 			ofSetColor(155,58,0);
 		}
-		ofLine(oneLength*(i)+PMDRAWSPACING,drawBufferY,oneLength*(i)+PMDRAWSPACING,drawBufferY-10);
+		ofDrawLine(oneLength*(i)+PMDRAWSPACING,drawBufferY,oneLength*(i)+PMDRAWSPACING,drawBufferY-10);
     }
 }
 
@@ -291,7 +299,7 @@ void VideoBuffer::draw(int _x, int _y, int _w, int _h){
         if(stopped) ofSetColor(255,0,0);
         else ofSetColor(255);
     
-        ofLine(_x,drawBufferY,length,drawBufferY);
+        ofDrawLine(_x,drawBufferY,length,drawBufferY);
         
         ofSetColor(255);
         
@@ -322,7 +330,7 @@ void VideoBuffer::draw(int _x, int _y, int _w, int _h){
                 ofSetLineWidth(1.0);
                 ofSetColor(155,58,0);
             }
-            ofLine(oneLength*(i)+_x,drawBufferY,oneLength*(i)+_x,drawBufferY-10);
+            ofDrawLine(oneLength*(i)+_x,drawBufferY,oneLength*(i)+_x,drawBufferY-10);
         }
     }
 

@@ -13,7 +13,10 @@ obj/
 
 .svn/
 obj/
-bin/example_PlayModes_MaximDebug.app
+bin/example.app
+bin/exampleDebug.app
 !data/
-example_PlayModes_Maxim_vidDelays/
-example_PlayModes_Maxim_vidDelays/src/
+example/
+example/src/
+example_Feedback_tGrabber/
+example_Feedback_tGrabber/src/

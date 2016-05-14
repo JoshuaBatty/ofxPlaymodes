@@ -24,6 +24,9 @@ namespace ofxPm{
         float getFps();
         
         void update();
+        
+    private:
+        VideoFrame frame;
     };
 }
 #endif /* FILEGRABBER_H_ */

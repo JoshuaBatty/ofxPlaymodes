@@ -180,9 +180,13 @@ public:
 	}
 
 	void VideoFrame::poolDeleter(VideoFrame::Obj * obj){
-		poolMutex.lock();
-		pool[VideoFormat(obj->pixels)].push_back(ofPtr<Obj>(obj,&VideoFrame::poolDeleter));
-		poolMutex.unlock();
+        try{
+            std::unique_lock<std::mutex> lock(poolMutex);
+            pool[VideoFormat(obj->pixels)].push_back(ofPtr<Obj>(obj,&VideoFrame::poolDeleter));
+        }
+        catch(const std::exception& e){
+            /* When program terminates, acquiring lock is impossible. */
+        }
 	}
 
 	ofPixels & VideoFrame::getPixelsRef(){
@@ -213,7 +217,7 @@ public:
 	}
 
 	int VideoFrame::getPoolSize(const VideoFormat & format){
-		ScopedLock<ofMutex> lock(poolMutex);
+		std::unique_lock<std::mutex> lock(poolMutex);
 		return pool[format].size();
 	}
 

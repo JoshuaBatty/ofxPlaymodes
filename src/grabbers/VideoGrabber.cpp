@@ -11,29 +11,33 @@ namespace ofxPm{
 VideoGrabber::VideoGrabber(){
 }
 
+//------------------------------------------------------
 VideoGrabber::~VideoGrabber(){
 }
-
+    
+//------------------------------------------------------
 bool VideoGrabber::initGrabber(int w, int h){
-	bool ret = ofVideoGrabber::initGrabber(w,h,false);
-	frame = VideoFrame::newVideoFrame(getPixelsRef());
+	bool ret = ofVideoGrabber::initGrabber(w,h);
+	frame = VideoFrame::newVideoFrame(getPixels());
 	return ret;
 }
 
+//------------------------------------------------------
 VideoFrame VideoGrabber::getNextVideoFrame(){
     return frame;
 }
 
+//------------------------------------------------------
 void VideoGrabber::update(){
 	ofVideoGrabber::update();
 	if(isFrameNew()){
-		newFrame(getPixelsRef());
+		newFrame(getPixels());
 	}
 }
 
+//------------------------------------------------------
 void VideoGrabber::newFrame(ofPixels & pixels){
 	frame = VideoFrame::newVideoFrame(pixels);
-	frame.getTextureRef();
 	newFrameEvent.notify(this,frame);
 }
 
@@ -46,7 +50,6 @@ float VideoGrabber::getFps(){
 void VideoGrabber::setFps(float fps){
 	this->fps = fps;
 }
-	
-	;
+
 	
 }

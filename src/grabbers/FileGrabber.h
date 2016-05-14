@@ -13,7 +13,7 @@
 
 
 namespace ofxPm{
-class FileGrabber: public VideoSource, public ofVideoPlayer {
+    class FileGrabber: public VideoSource, public ofVideoPlayer {
 public:
 	FileGrabber();
 	virtual ~FileGrabber();

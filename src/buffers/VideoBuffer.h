@@ -52,6 +52,7 @@ public:
     int getFramePos() { return framePos; }
     void setFramePos(int pos);
     void setFramePos(float posPerc);
+    void setSize(int numFrames);
    // bool bRecord;
 
 
