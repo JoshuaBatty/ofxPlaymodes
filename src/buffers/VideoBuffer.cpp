@@ -8,8 +8,8 @@
 #include "VideoBuffer.h"
 
 namespace ofxPm{
-VideoBuffer::VideoBuffer(VideoSource & source, int size) {
-	setup(source,size);
+VideoBuffer::VideoBuffer(int width, int height, int size) {
+	setup(width, height, size);
 }
 
 VideoBuffer::VideoBuffer(){
@@ -26,21 +26,28 @@ VideoBuffer::VideoBuffer(){
     lastVal = 0;
 }
 
-
-void VideoBuffer::setup(VideoSource & source, int size, bool isTracer, bool allocateOnSetup){
-	this->source=&source;
+void VideoBuffer::setup(int width, int height, int size, bool isTracer, bool allocateOnSetup){
+//	this->source=&source;
     this->isTracer = isTracer;
 	totalFrames=0;
 	maxSize = size;
 	if(allocateOnSetup){
 		for(int i=0;i<size;i++){
-			VideoFrame videoFrame = VideoFrame::newVideoFrame(source.getNextVideoFrame().getPixelsRef());
-			videoFrame.getTextureRef();
+//			VideoFrame videoFrame = VideoFrame::newVideoFrame(source->getNextVideoFrame().getPixelsRef());
+
+            ofPixels pix;
+            pix.allocate(width, height, OF_IMAGE_COLOR);
+            for(int x = 0; x < 640; x++){
+                for(int y = 0; y < 480; y++){
+                    pix.setColor(x, y, ofColor::black);
+                }
+            }
+            VideoFrame videoFrame = VideoFrame::newVideoFrame(pix);
             if(!isTracer) newVideoFrame(videoFrame);
-            else newVideoFrameTracer(videoFrame);
+            else pushNewVideoFrameTracer(videoFrame);
 		}
 	}
-	resume();
+    resume();
 	microsOneSec=-1;
 }
 
@@ -48,17 +55,30 @@ VideoBuffer::~VideoBuffer() {
 
 }
 
-void VideoBuffer::setSize(int numFrames){
+void VideoBuffer::setSize(int width, int height, int numFrames){
     maxSize = numFrames;
     for(int i=0;i<numFrames;i++){
-        VideoFrame videoFrame = VideoFrame::newVideoFrame(source->getNextVideoFrame().getPixelsRef());
+//        VideoFrame videoFrame = VideoFrame::newVideoFrame(source->getNextVideoFrame().getPixelsRef());
+        
+        ofPixels pix;
+        pix.allocate(width, height, OF_IMAGE_COLOR);
+        for(int x = 0; x < 640; x++){
+            for(int y = 0; y < 480; y++){
+                pix.setColor(x, y, ofColor::black);
+            }
+        }
+        VideoFrame videoFrame = VideoFrame::newVideoFrame(pix);
         videoFrame.getTextureRef();
-        newVideoFrame(videoFrame);
+        pushNewVideoFrame(videoFrame);
     }
 }
     
   
-void VideoBuffer::newVideoFrameTracer(VideoFrame & frame){
+void VideoBuffer::pushNewVideoFrameTracer(VideoFrame & frame){
+    if(isStopped()){
+        return;
+    }
+    
     int64_t time = frame.getTimestamp().epochMicroseconds();
     if(microsOneSec==-1) microsOneSec=time;
     framesOneSec++;
@@ -79,13 +99,13 @@ void VideoBuffer::newVideoFrameTracer(VideoFrame & frame){
     }
     
     //timeMutex.unlock();
-    newFrameEvent.notify(this,frame);
+    //newFrameEvent.notify(this,frame);
     
 }
   
     
 //////////////////////////////////////////////////////////////////////////////
-void VideoBuffer::newVideoFrame(VideoFrame & frame){
+void VideoBuffer::pushNewVideoFrame(VideoFrame & frame){
     
     int64_t time = frame.getTimestamp().epochMicroseconds();
     if(microsOneSec==-1) microsOneSec=time;
@@ -114,7 +134,7 @@ void VideoBuffer::newVideoFrame(VideoFrame & frame){
     }
     
     //timeMutex.unlock();
-    newFrameEvent.notify(this,frame);
+    //newFrameEvent.notify(this,frame);
 }
 
      
@@ -336,15 +356,10 @@ void VideoBuffer::draw(int _x, int _y, int _w, int _h){
 
 
 void VideoBuffer::stop(){
-	if(!isTracer) ofRemoveListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrame);
-    else ofRemoveListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrameTracer);
     stopped = true;
-	
 }
 
 void VideoBuffer::resume(){
-    if(!isTracer) ofAddListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrame);
-    else ofAddListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrameTracer);
     stopped = false;
 }
 

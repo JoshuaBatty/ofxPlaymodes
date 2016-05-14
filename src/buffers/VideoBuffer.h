@@ -28,12 +28,12 @@
 namespace ofxPm{
 class VideoBuffer: public Buffer, public VideoSink, public VideoSource {
 public:
-	VideoBuffer(VideoSource & source, int size);
+	VideoBuffer(int width, int height, int size);
 	VideoBuffer();
 	virtual ~VideoBuffer();
 
-	void setup(VideoSource & source, int size, bool isTracer=false, bool allocateOnSetup=false);
-
+    void setup(int width, int height, int size, bool isTracer=false, bool allocateOnSetup=false);
+    
     // of working in threaded mode,
     // call buffer->lock() buffer->unlock()
     // to call this methods thread sage
@@ -52,12 +52,12 @@ public:
     int getFramePos() { return framePos; }
     void setFramePos(int pos);
     void setFramePos(float posPerc);
-    void setSize(int numFrames);
+    void setSize(int width, int height, int numFrames);
    // bool bRecord;
 
 
-	virtual void newVideoFrame(VideoFrame &frame);  // for notification of new frame event
-    virtual void newVideoFrameTracer(VideoFrame &frame);  // for notification of new frame event // tracer version
+	virtual void pushNewVideoFrame(VideoFrame &frame);  // for notification of new frame event
+    virtual void pushNewVideoFrameTracer(VideoFrame &frame);  // for notification of new frame event // tracer version
 
 	unsigned int size();                            // total size of the buffer
 	unsigned int getMaxSize();                         // max size of the buffer

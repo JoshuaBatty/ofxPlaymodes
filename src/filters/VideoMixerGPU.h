@@ -19,7 +19,7 @@ public:
 	void setup(VideoSource & source1, VideoSource & source2);
 
     VideoFrame getNextVideoFrame();
-	void newVideoFrame(VideoFrame & frame);
+    VideoFrame mixVideoFrames(VideoFrame & frameA, VideoFrame & frameB);
 	float getFps();
 
 private:

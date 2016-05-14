@@ -51,11 +51,11 @@ void GrainPlayer::setup(){
     //Maxi
     samp.load(ofToDataPath("400Frames(60fps).wav"));
     sampFile.load(ofToDataPath("/Users/josh/Desktop/Media/Custom_Content/MindBuffer_Elsewhere.wav"));
-    ps1 = new maxiPitchStretch<gaussianWinFunctor>(&samp);
-    ps2 = new maxiPitchStretch<cosineWinFunctor>(&samp);
-    ps3 = new maxiPitchStretch<triangleWinFunctor>(&samp);
-    ps4 = new maxiPitchStretch<rectWinFunctor>(&samp);
-    ps5 = new maxiPitchStretch<hannWinFunctor>(&samp);
+    ps1 = new maxiTimePitchStretch<gaussianWinFunctor, maxiSample>(&samp);
+    ps2 = new maxiTimePitchStretch<cosineWinFunctor, maxiSample>(&samp);
+    ps3 = new maxiTimePitchStretch<triangleWinFunctor, maxiSample>(&samp);
+    ps4 = new maxiTimePitchStretch<rectWinFunctor, maxiSample>(&samp);
+    ps5 = new maxiTimePitchStretch<hannWinFunctor, maxiSample>(&samp);
     
     ofxMaxiSettings::setup(sampleRate, 2, bufferSize);
 }

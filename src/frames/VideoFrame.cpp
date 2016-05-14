@@ -217,7 +217,7 @@ public:
 	}
 
 	int VideoFrame::getPoolSize(const VideoFormat & format){
-		std::unique_lock<std::mutex> lock(poolMutex);
+        std::unique_lock<std::mutex> lock(poolMutex);
 		return pool[format].size();
 	}
 

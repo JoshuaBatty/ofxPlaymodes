@@ -69,8 +69,9 @@ void AVGS::update(){
     
     grainPlayer.updatePlayHead();
     
-    playModes.setFramePos((float)grainPlayer.getRecordPostion()); //Here we use the audio record postion to
+//    playModes.setFramePos((float)grainPlayer.getRecordPostion()); //Here we use the audio record postion to
     //set the % of the video buffer to write to
+    
     playModes.setNumPlayers(grainPlayer.overlaps);
     playModes.setVideoGrainAmount(grainPlayer.grainLength);
     

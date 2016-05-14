@@ -50,11 +50,11 @@ public:
 	float volume;
     
     //////////// ofxMaxim ////////////
-    maxiPitchStretch<gaussianWinFunctor> *ps1;
-    maxiPitchStretch<cosineWinFunctor> *ps2;
-    maxiPitchStretch<triangleWinFunctor> *ps3;
-    maxiPitchStretch<rectWinFunctor> *ps4;
-    maxiPitchStretch<hannWinFunctor> *ps5;
+    maxiTimePitchStretch<gaussianWinFunctor, maxiSample> *ps1;
+    maxiTimePitchStretch<cosineWinFunctor, maxiSample> *ps2;
+    maxiTimePitchStretch<triangleWinFunctor, maxiSample> *ps3;
+    maxiTimePitchStretch<rectWinFunctor, maxiSample> *ps4;
+    maxiTimePitchStretch<hannWinFunctor, maxiSample> *ps5;
     
     maxiMix mymix;
     maxiSample samp;

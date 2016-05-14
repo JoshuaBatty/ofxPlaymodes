@@ -19,14 +19,15 @@ public:
 	void setup(VideoSource & source, float fps=30);
 
     VideoFrame getNextVideoFrame();
-	void newVideoFrame(VideoFrame & frame);
+    void setNewVideoFrame(VideoFrame & frame);
     float getFps();
     void setFps(float fps);
+    VideoFrame getNewVideoFrame();
  //   void glThreadUpdate();
 
-protected:
-    void threadedFunction();
-    void glThreadUpdate(ofEventArgs & args);
+//protected:
+//    void threadedFunction();
+//    void glThreadUpdate(ofEventArgs & args);
 
 private:
     VideoFrame back, front;

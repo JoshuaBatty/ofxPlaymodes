@@ -47,7 +47,7 @@ void VideoMixerGPU::setup(VideoSource & _source1, VideoSource & _source2){
 	front = VideoFrame::newVideoFrame(_source1.getNextVideoFrame());
 	back = VideoFrame::newVideoFrame(_source1.getNextVideoFrame());
 	back.setTextureOnly(true);
-	ofAddListener(source1->newFrameEvent,this,&VideoMixerGPU::newVideoFrame);
+	//--ofAddListener(source1->newFrameEvent,this,&VideoMixerGPU::newVideoFrame);
 	shader.setupShaderFromSource(GL_FRAGMENT_SHADER,fragmentMixSrc);
 	shader.linkProgram();
 }
@@ -57,26 +57,26 @@ VideoFrame VideoMixerGPU::getNextVideoFrame(){
 	return front;
 }
 
-void VideoMixerGPU::newVideoFrame(VideoFrame & frame){
+VideoFrame VideoMixerGPU::mixVideoFrames(VideoFrame & frameA, VideoFrame & frameB){
 	//front = VideoFrame::newVideoFrame(frame);
 
-	if(source2->getNextVideoFrame()==NULL){
-		ofNotifyEvent(newFrameEvent,front);
-		return;
-	}
+//	if(source2->getNextVideoFrame()==NULL){
+//		ofNotifyEvent(newFrameEvent,front);
+//		return;
+//	}
 
 
 	back.getFboRef().begin();
 	shader.begin();
-	shader.setUniformTexture("tex0",frame.getTextureRef(),0);
-	shader.setUniformTexture("tex1",source2->getNextVideoFrame().getTextureRef(),1);
-	ofDrawRectangle(0,0,frame.getWidth(),frame.getHeight());
+	shader.setUniformTexture("tex0",frameA.getTextureRef(),0);
+	shader.setUniformTexture("tex1",frameB.getTextureRef(),1);
+	ofDrawRectangle(0,0,frameA.getWidth(),frameA.getHeight());
 	shader.end();
 	back.getFboRef().end();
 
-	front = VideoFrame::newVideoFrame(back);
-
-	ofNotifyEvent(newFrameEvent,front);
+    front = VideoFrame::newVideoFrame(back);
+    return front;
+	//ofNotifyEvent(newFrameEvent,front);
 }
 
 float VideoMixerGPU::getFps(){
