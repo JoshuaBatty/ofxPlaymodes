@@ -56,8 +56,8 @@ public:
    // bool bRecord;
 
 
-	virtual void newVideoFrame(VideoFrame &frame);  // for notification of new frame event
-    virtual void newVideoFrameTracer(VideoFrame &frame);  // for notification of new frame event // tracer version
+	virtual void pushNewVideoFrame(VideoFrame &frame);  // for notification of new frame event
+    virtual void pushNewVideoFrameTracer(VideoFrame &frame);  // for notification of new frame event // tracer version
 
 	unsigned int size();                            // total size of the buffer
 	unsigned int getMaxSize();                         // max size of the buffer

@@ -35,9 +35,9 @@ void VideoBuffer::setup(VideoSource & source, int size, bool isTracer, bool allo
 	if(allocateOnSetup){
 		for(int i=0;i<size;i++){
 			VideoFrame videoFrame = VideoFrame::newVideoFrame(source.getNextVideoFrame().getPixelsRef());
-			videoFrame.getTextureRef();
-            if(!isTracer) newVideoFrame(videoFrame);
-            else newVideoFrameTracer(videoFrame);
+			//videoFrame.getTextureRef();
+            if(!isTracer) pushNewVideoFrame(videoFrame);
+            else pushNewVideoFrameTracer(videoFrame);
 		}
 	}
 	resume();
@@ -52,13 +52,14 @@ void VideoBuffer::setSize(int numFrames){
     maxSize = numFrames;
     for(int i=0;i<numFrames;i++){
         VideoFrame videoFrame = VideoFrame::newVideoFrame(source->getNextVideoFrame().getPixelsRef());
-        videoFrame.getTextureRef();
+        //videoFrame.getTextureRef();
         newVideoFrame(videoFrame);
     }
+    
 }
     
   
-void VideoBuffer::newVideoFrameTracer(VideoFrame & frame){
+void VideoBuffer::pushNewVideoFrameTracer(VideoFrame & frame){
     int64_t time = frame.getTimestamp().epochMicroseconds();
     if(microsOneSec==-1) microsOneSec=time;
     framesOneSec++;
@@ -77,15 +78,11 @@ void VideoBuffer::newVideoFrameTracer(VideoFrame & frame){
     while(size()>maxSize){
         frames.erase(frames.begin());
     }
-    
-    //timeMutex.unlock();
-    newFrameEvent.notify(this,frame);
-    
 }
   
     
 //////////////////////////////////////////////////////////////////////////////
-void VideoBuffer::newVideoFrame(VideoFrame & frame){
+void VideoBuffer::pushNewVideoFrame(VideoFrame & frame){
     
     int64_t time = frame.getTimestamp().epochMicroseconds();
     if(microsOneSec==-1) microsOneSec=time;
@@ -100,10 +97,16 @@ void VideoBuffer::newVideoFrame(VideoFrame & frame){
     if(size()==0)initTime=frame.getTimestamp();
     //timeMutex.lock();
     
+    cout << "size() = " << size() << " --- maxSize = " << maxSize << endl;
+    cout << "frames.size() = " << frames.size() << " --- framePos = " << framePos << endl;
+    cout << " ---------------------------------------------------------------- " << endl;
+    
+    
     if (size() >= maxSize) {
         // THIS LINE IS GIVING ME CRASHES SOMETIMES ..... SERIOUS WTF : if i dont see this happen again its fixed
-        frames[framePos] = frame; // Here we use the framePos variable to specify where new frames
+        frames[ofClamp(framePos, 0, size()-1)] = frame; // Here we use the framePos variable to specify where new frames
                                   // should be stored in the video buffer instead of using the vector push_back call.
+        cout << "FUUUCCCCKKKKKKK " << endl;
     }
     else if (size() < maxSize) {
         frames.push_back(frame);
@@ -112,9 +115,6 @@ void VideoBuffer::newVideoFrame(VideoFrame & frame){
     while(size() > maxSize){
         frames.erase(frames.begin()+framePos);
     }
-    
-    //timeMutex.unlock();
-    newFrameEvent.notify(this,frame);
 }
 
      
@@ -336,15 +336,10 @@ void VideoBuffer::draw(int _x, int _y, int _w, int _h){
 
 
 void VideoBuffer::stop(){
-	if(!isTracer) ofRemoveListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrame);
-    else ofRemoveListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrameTracer);
     stopped = true;
-	
 }
 
 void VideoBuffer::resume(){
-    if(!isTracer) ofAddListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrame);
-    else ofAddListener(source->newFrameEvent,this,&VideoBuffer::newVideoFrameTracer);
     stopped = false;
 }
 
