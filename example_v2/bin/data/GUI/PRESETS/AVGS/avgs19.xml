@@ -1,0 +1,45 @@
+<Widget>
+    <Kind>17</Kind>
+    <Name>Set Position</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>21</Kind>
+    <Name>Position Random</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Position</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Speed</Name>
+    <Value>-0.114285707</Value>
+</Widget>
+<Widget>
+    <Kind>21</Kind>
+    <Name>Pitch Random</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Pitch</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>21</Kind>
+    <Name>GrainSize Random</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>GrainSize</Name>
+    <Value>0.103928573</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>Overlaps</Name>
+    <Value>3</Value>
+</Widget>

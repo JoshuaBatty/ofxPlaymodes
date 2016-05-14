@@ -46,6 +46,8 @@ void PlayModes::setup(){
     
     //Register for Grain Events
     bNewGrain = false;
+    
+
 }
 
 //--------------------------------------------------------------
