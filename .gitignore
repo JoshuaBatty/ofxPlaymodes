@@ -15,8 +15,7 @@ obj/
 obj/
 bin/example.app
 bin/exampleDebug.app
+bin/example_noEvents.app
 !data/
 example/
 example/src/
-example_headerDelays/
-example_headerDelays/src/

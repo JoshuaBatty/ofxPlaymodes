@@ -24,11 +24,6 @@ New Video Frames however are put on the very end of the buffer and the whole thi
 
 The audio and visual buffers are working fundamentaly different in where new content is written into the ring buffer.  
 
-
 As a result I have added my own verion of the VideoBuffer::newVideoFrame(VideoFrame &frame) method which changes the two recording buffers to behave the same but im getting quite a few artefacts sometimes. eg, frames not being properly owerwritten, also the video freezes and doesn't update on screen when recording. 
 
-Here is a screen shot of what I have hacked together... 
 
-![NewVideoFrameHack] (https://raw.githubusercontent.com/JoshuaBatty/ofxPlaymodes/master/newVideoFrameHack.png)
-
-I feel like its quite close but it does feel like a band aid hack which although could work, probably is not the correct way to do this... 
