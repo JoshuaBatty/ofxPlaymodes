@@ -24,11 +24,11 @@ VideoRate::~VideoRate() {
 
 void VideoRate::setup(VideoSource & _source, float fps){
 	source = &_source;
-	ofAddListener(source->newFrameEvent,this,&VideoRate::newVideoFrame);
+	//ofAddListener(source->newFrameEvent,this,&VideoRate::newVideoFrame);
 	setFps(fps);
 	front = _source.getNextVideoFrame();
 	//startThread(true,false);
-	ofAddListener(ofEvents().update,this,&VideoRate::glThreadUpdate);
+	//ofAddListener(ofEvents().update,this,&VideoRate::glThreadUpdate);
 }
 
 VideoFrame VideoRate::getNextVideoFrame(){
@@ -36,7 +36,7 @@ VideoFrame VideoRate::getNextVideoFrame(){
 	return front;
 }
 
-void VideoRate::newVideoFrame(VideoFrame & frame){
+void VideoRate::setNewVideoFrame(VideoFrame & frame){
 	//mutex.lock();
 	back = frame;
 	//mutex.unlock();
@@ -49,38 +49,38 @@ float VideoRate::getFps(){
 void VideoRate::setFps(float _fps){
 	fps = _fps;
 }
-
-
-void VideoRate::threadedFunction(){
-	while(isThreadRunning()){
-		unsigned long long time = ofGetElapsedTimeMicros();
-		if(back!=NULL){
-			mutexFront.lock();
-			framesToSend.push(back);
-			mutexFront.unlock();
-		}
-		time = ofGetElapsedTimeMicros()-time;
-		long long sleeptime = 1000000./fps-time;
-		if(sleeptime>0){
-			usleep(sleeptime);
-		}
-	}
 }
 
-    
-void VideoRate::glThreadUpdate(ofEventArgs & args){
-        double dFrames = ofGetLastFrameTime()*fps+remainder;
-        int framesToSend = dFrames;
-        remainder = dFrames-framesToSend;
-        if(back!=NULL){
-         //    for(int i=0;i<framesToSend;i++){ // Commented out the for loop and %99 of the glitches went away
-            VideoFrame newFrame = VideoFrame::newVideoFrame(back);
-            ofNotifyEvent(newFrameEvent,newFrame);
-            
-         //     }
-        }
-    }
-}
+//void VideoRate::threadedFunction(){
+//	while(isThreadRunning()){
+//		unsigned long long time = ofGetElapsedTimeMicros();
+//		if(back!=NULL){
+//			mutexFront.lock();
+//			framesToSend.push(back);
+//			mutexFront.unlock();
+//		}
+//		time = ofGetElapsedTimeMicros()-time;
+//		long long sleeptime = 1000000./fps-time;
+//		if(sleeptime>0){
+//			usleep(sleeptime);
+//		}
+//	}
+//}
+//
+//    
+//void VideoRate::glThreadUpdate(ofEventArgs & args){
+//        double dFrames = ofGetLastFrameTime()*fps+remainder;
+//        int framesToSend = dFrames;
+//        remainder = dFrames-framesToSend;
+//        if(back!=NULL){
+//         //    for(int i=0;i<framesToSend;i++){ // Commented out the for loop and %99 of the glitches went away
+//            VideoFrame newFrame = VideoFrame::newVideoFrame(back);
+//            ofNotifyEvent(newFrameEvent,newFrame);
+//            
+//         //     }
+//        }
+//    }
+//}
 
 
 /*

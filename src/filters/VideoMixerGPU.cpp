@@ -16,15 +16,16 @@ static string fragmentMixSrc =
 		"#extension GL_ARB_texture_rectangle : enable\n"
 #endif
         STRINGIFY(
-	uniform sampler2DRect tex0;
-        uniform sampler2DRect tex1;
-
-        void main (void){
-            vec2 pos = gl_FragCoord.xy;
-
-            vec4 color = vec4(texture2DRect(tex0, pos)*0.5 + texture2DRect(tex1, pos)*0.5);
-            gl_FragColor = color;
-        }
+              uniform sampler2DRect tex0;
+              uniform sampler2DRect tex1;
+              
+              void main (void){
+                  vec2 pos = gl_FragCoord.xy;
+                  
+                  vec4 color = vec4(texture2DRect(tex0, pos)*0.5 + texture2DRect(tex1, pos)*0.5);
+                  gl_FragColor = color;
+//                  gl_FragColor = texture2DRect(tex0,pos);
+              }
         );
 
 namespace ofxPm{
@@ -57,7 +58,6 @@ VideoFrame VideoMixerGPU::getNextVideoFrame(){
 }
 
 VideoFrame VideoMixerGPU::mixVideoFrames(VideoFrame & frameA, VideoFrame & frameB){
-
     back.getFboRef().begin();
     shader.begin();
     shader.setUniformTexture("tex0",frameA.getTextureRef(),0);
