@@ -20,8 +20,8 @@ class VisualRingBuffer{
 public:
     ~VisualRingBuffer();
     void setup(int w, int h);
-    void setupBufferTrails(int w, int h);
-    void setupBufferChaser(int w, int h, int numHeaders);
+    void setupBufferTrails(int w, int h, int bufferNumFrames);
+    void setupBufferChaser(int w, int h, int bufferNumFrames, int numHeaders);
     
     
     void stepChaserForwardOneFrame();

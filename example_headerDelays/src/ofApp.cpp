@@ -5,6 +5,7 @@ void ofApp::setup(){
     ofEnableAlphaBlending();
     ofSetVerticalSync(true);
     ofBackground(0);
+    ofDisableArbTex();
     
     gui.setup();
     gui.add(fps.setup("fps",60,1,60));
@@ -16,15 +17,16 @@ void ofApp::setup(){
     grabber.setDeviceID(0);
     grabber.setDesiredFrameRate(30);
     grabber.initGrabber(w,h);
-    
+
+
     fbo.allocate(w,h,GL_RGBA);
     
-    bTrailsOrChaser = false; // Toggle between video trails and buffer chase examples
+    bTrailsOrChaser = true; // Toggle between video trails and buffer chase examples
     
     if(bTrailsOrChaser == true){
-        ringBuffer.setupBufferTrails(w,h);
+        ringBuffer.setupBufferTrails(w,h,60);
     } else {
-        ringBuffer.setupBufferChaser(w,h,100);
+        ringBuffer.setupBufferChaser(w,h,400,100);
     }
 }
 

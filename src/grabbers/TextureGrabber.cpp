@@ -17,6 +17,9 @@ namespace ofxPm{
     }
     
     bool TextureGrabber::initGrabber(int w, int h){
+        //-- Because all of Playmodes seems to want ARB textures I enable it here
+        //-- Just incase it has been disabled globally before we setup playmodes.
+        ofEnableArbTex();
         allocate(w, h, GL_RGB);
     }
     

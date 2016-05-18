@@ -18,7 +18,7 @@ VisualRingBuffer::~VisualRingBuffer(){
 }
 
 //--------------------------------------------------------------
-void VisualRingBuffer::setupBufferTrails(int w, int h){
+void VisualRingBuffer::setupBufferTrails(int w, int h, int bufferNumFrames){
     width = w;
     height = h;
     
@@ -28,12 +28,12 @@ void VisualRingBuffer::setupBufferTrails(int w, int h){
     vHeaders.push_back(vHeader);
     vHeaders[0]->setup(vBuffer);
     vMixer.setup(tGrabber,*vHeaders[0]);
-    vBuffer.setup(tGrabber, 140, true,false);
+    vBuffer.setup(tGrabber, bufferNumFrames, true,false);
     vHeaders[0]->setDelayMs(300);
 }
 
 //--------------------------------------------------------------
-void VisualRingBuffer::setupBufferChaser(int w, int h, int numHeaders){
+void VisualRingBuffer::setupBufferChaser(int w, int h, int bufferNumFrames, int numHeaders){
     width = w;
     height = h;
     
@@ -46,7 +46,7 @@ void VisualRingBuffer::setupBufferChaser(int w, int h, int numHeaders){
         vHeaders[i]->setDelayMs(300);
     }
     
-    vBuffer.setup(tGrabber, 400, true,false);
+    vBuffer.setup(tGrabber, bufferNumFrames, true,false);
 }
 
 //--------------------------------------------------------------
@@ -114,7 +114,7 @@ void VisualRingBuffer::setHeight(int height){
 //--------------------------------------------------------------
 void VisualRingBuffer::drawTrails(int x, int y, int w, int h){
 //    vMixer.getNextVideoFrame().getTextureRef().draw(x, y, w, h);
-    //    tGrabber.getNextVideoFrame().getTextureRef().draw(x, y, w, h);
+    tGrabber.getNextVideoFrame().getTextureRef().draw(1280, y, w, h);
 
     vHeaders[0]->getNextVideoFrame().getTextureRef().draw(x, y, w, h);
 }
@@ -163,7 +163,7 @@ void VisualRingBuffer::setTexture(ofFbo fbo){
 void VisualRingBuffer::toggleRecord(){
     if(vBuffer.isStopped()){
         vBuffer.resume();
-    }else{
+    } else{
         vBuffer.stop();
     }
 }

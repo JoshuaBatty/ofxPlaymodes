@@ -12,7 +12,7 @@ using Poco::ScopedLock;
 
 static string fragmentMixSrc =
 #ifdef TARGET_LINUX
-		"#version 140\n"
+		"#version 120\n"
 		"#extension GL_ARB_texture_rectangle : enable\n"
 #endif
         STRINGIFY(
@@ -24,7 +24,6 @@ static string fragmentMixSrc =
                   
                   vec4 color = vec4(texture2DRect(tex0, pos)*0.5 + texture2DRect(tex1, pos)*0.5);
                   gl_FragColor = color;
-//                  gl_FragColor = texture2DRect(tex0,pos);
               }
         );
 
@@ -43,7 +42,7 @@ VideoMixerGPU::~VideoMixerGPU() {
 }
 
 void VideoMixerGPU::setup(VideoSource & _source1, VideoSource & _source2){
-	source1 = &_source1;
+    source1 = &_source1;
 	source2 = &_source2;
 	front = VideoFrame::newVideoFrame(_source1.getNextVideoFrame());
 	back = VideoFrame::newVideoFrame(_source1.getNextVideoFrame());
