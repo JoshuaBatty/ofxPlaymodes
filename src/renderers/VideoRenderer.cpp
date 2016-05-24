@@ -16,7 +16,7 @@ VideoRenderer::VideoRenderer(){
 
 }
 
-VideoRenderer::VideoRenderer(VideoSource & source) {
+VideoRenderer::VideoRenderer(VisualSource & source) {
 	setup(source);
 }
 
@@ -24,7 +24,7 @@ VideoRenderer::~VideoRenderer() {
 }
 
 
-void VideoRenderer::setup(VideoSource & source){
+void VideoRenderer::setup(VisualSource & source){
     this->source=&source;
 
 	minmaxBlend=false;

@@ -9,12 +9,12 @@
 #ifndef VIDEOGRABBER_H_INCLUDED
 #define VIDEOGRABBER_H_INCLUDED
 
-#include "VideoSource.h"
+#include "VisualSource.h"
 #include "ofMain.h"
 
 
 namespace ofxPm{
-class VideoGrabber: public VideoSource, public ofVideoGrabber{
+class VideoGrabber: public VisualSource, public ofVideoGrabber{
 public:
     VideoGrabber();
     virtual ~VideoGrabber();

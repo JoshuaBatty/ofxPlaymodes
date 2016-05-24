@@ -16,8 +16,8 @@ public:
 	VideoRate();
 	virtual ~VideoRate();
 
-	void setup(VideoSource & source, float fps=30);
-
+    void setup(VisualSource & _source, float fps=30);
+    
     VideoFrame getNextVideoFrame();
 	void setNewVideoFrame(VideoFrame & frame);
     float getFps();
@@ -30,7 +30,7 @@ public:
 
 private:
     VideoFrame back, front;
-    VideoSource* source;
+    VisualSource* source;
     double fps;
     ofMutex mutexFront;
     queue<VideoFrame> framesToSend;

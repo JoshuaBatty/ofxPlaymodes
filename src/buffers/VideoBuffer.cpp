@@ -8,7 +8,7 @@
 #include "VideoBuffer.h"
 
 namespace ofxPm{
-VideoBuffer::VideoBuffer(VideoSource & source, int size) {
+VideoBuffer::VideoBuffer(VisualSource & source, int size) {
 	setup(source,size);
 }
 
@@ -27,7 +27,7 @@ VideoBuffer::VideoBuffer(){
 }
 
 
-void VideoBuffer::setup(VideoSource & source, int size, bool isTracer, bool allocateOnSetup){
+void VideoBuffer::setup(VisualSource & source, int size, bool isTracer, bool allocateOnSetup){
 	this->source=&source;
     this->isTracer = isTracer;
 	totalFrames=0;

@@ -16,7 +16,7 @@ public:
 	VideoMixerGPU();
 	virtual ~VideoMixerGPU();
 
-	void setup(VideoSource & source1, VideoSource & source2);
+	void setup(VisualSource & source1, VisualSource & source2);
 
     VideoFrame getNextVideoFrame();
 	VideoFrame mixVideoFrames(VideoFrame & frameA, VideoFrame & frameB);
@@ -25,7 +25,7 @@ public:
 private:
 	void glThreadUpdate(ofEventArgs & args);
 	VideoFrame front, back, back1, back2;
-	VideoSource * source1, * source2;
+	VisualSource * source1, * source2;
 	ofShader shader;
 	bool newFrame;
 	ofMutex swapBuffersMutex;

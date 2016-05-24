@@ -11,7 +11,7 @@
 #include "VideoFrame.h"
 #include "pmUtils.h"
 #include "Buffer.h"
-#include "VideoSource.h"
+#include "VisualSource.h"
 #include "VideoSink.h"
 #include "map"
 #include "deque"
@@ -26,13 +26,13 @@
 // of the headers
 
 namespace ofxPm{
-class VideoBuffer: public Buffer, public VideoSink, public VideoSource {
+class VideoBuffer: public Buffer, public VideoSink, public VisualSource {
 public:
-	VideoBuffer(VideoSource & source, int size);
+	VideoBuffer(VisualSource & source, int size);
 	VideoBuffer();
 	virtual ~VideoBuffer();
 
-	void setup(VideoSource & source, int size, bool isTracer=false, bool allocateOnSetup=false);
+	void setup(VisualSource & source, int size, bool isTracer=false, bool allocateOnSetup=false);
 
     // of working in threaded mode,
     // call buffer->lock() buffer->unlock()
@@ -86,7 +86,7 @@ protected:
     long    totalFrames;
     Timestamp initTime;
 
-    VideoSource* source;
+    VisualSource* source;
 
     bool isTracer;
     bool stopped;

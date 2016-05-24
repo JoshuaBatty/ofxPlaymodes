@@ -8,11 +8,11 @@
 #ifndef VIDEOFILTER_H_
 #define VIDEOFILTER_H_
 
-#include "VideoSource.h"
+#include "VisualSource.h"
 #include "VideoSink.h"
 
 namespace ofxPm{
-class VideoFilter : public VideoSink, public VideoSource {
+class VideoFilter : public VideoSink, public VisualSource {
 public:
 
     VideoFilter();

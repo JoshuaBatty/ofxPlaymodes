@@ -4,7 +4,7 @@
 #define AVLOOPERRENDERER_H_
 
 #include "VideoSink.h"
-#include "VideoSource.h"
+#include "VisualSource.h"
 #include "VideoHeader.h"
 #include "AudioSink.h"
 #include "AudioSource.h"
@@ -64,7 +64,7 @@ private:
 	
 	
 	float				lastIn,lastOut;
-	//VideoSource*		source;
+	//VisualSource*		source;
 };
 //------------------------------------------------------
 

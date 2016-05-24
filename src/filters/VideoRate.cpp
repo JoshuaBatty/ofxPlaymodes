@@ -21,8 +21,7 @@ VideoRate::~VideoRate() {
 	// TODO Auto-generated destructor stub
 }
 
-
-void VideoRate::setup(VideoSource & _source, float fps){
+void VideoRate::setup(VisualSource & _source, float fps){
 	source = &_source;
 	//ofAddListener(source->newFrameEvent,this,&VideoRate::newVideoFrame);
 	setFps(fps);

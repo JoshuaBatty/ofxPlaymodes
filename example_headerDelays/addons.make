@@ -1,3 +1,0 @@
-ofxGui
-ofxOsc
-ofxPlaymodes_NoEvents

@@ -9,11 +9,11 @@
 #ifndef TEXTUREGRABBER_H_
 #define TEXTUREGRABBER_H_
 
-#include "VideoSource.h"
+#include "VisualSource.h"
 #include "ofMain.h"
 
 namespace ofxPm{
-    class TextureGrabber: public VideoSource, public ofFbo {
+    class TextureGrabber: public VisualSource, public ofFbo {
     public:
         TextureGrabber();
         virtual ~TextureGrabber();

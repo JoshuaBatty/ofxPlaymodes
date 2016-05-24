@@ -9,7 +9,7 @@
 #define VIDEOHEADER_H_INCLUDED
 
 #include "VideoSink.h"
-#include "VideoSource.h"
+#include "VisualSource.h"
 #include "VideoBuffer.h"
 
 // acts as a video source and sink
@@ -17,7 +17,7 @@
 // based on speed, delay, fps and loop in/out
 
 namespace ofxPm{
-class VideoHeader:public VideoSink, public VideoSource{
+class VideoHeader:public VideoSink, public VisualSource{
 public:
 	
     VideoHeader(VideoBuffer & buffer);

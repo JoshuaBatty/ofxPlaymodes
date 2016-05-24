@@ -9,7 +9,7 @@
 #define VIDEORENDERER_H_
 
 #include "VideoSink.h"
-#include "VideoSource.h"
+#include "VisualSource.h"
 #include "ofShader.h"
 
 
@@ -17,10 +17,10 @@ namespace ofxPm{
 class VideoRenderer: public VideoSink {
 public:
 	VideoRenderer();
-	VideoRenderer(VideoSource & source);
+	VideoRenderer(VisualSource & source);
 	virtual ~VideoRenderer();
 
-	void setup(VideoSource & source);
+	void setup(VisualSource & source);
 
 	void draw();
 
@@ -36,7 +36,7 @@ public:
 
 private:
     void drawNextFrame();
-    VideoSource *source;
+    VisualSource *source;
     ofShader shader;
 
     ofColor tint;

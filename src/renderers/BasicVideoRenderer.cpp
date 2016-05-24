@@ -9,7 +9,7 @@
 #include "VideoFrame.h"
 
 namespace ofxPm{
-BasicVideoRenderer::BasicVideoRenderer(VideoSource & source) {
+BasicVideoRenderer::BasicVideoRenderer(VisualSource & source) {
 	this->source = &source;
 }
 
@@ -17,7 +17,7 @@ BasicVideoRenderer::BasicVideoRenderer(){
 	source = NULL;
 }
 
-void BasicVideoRenderer::setup(VideoSource & source){
+void BasicVideoRenderer::setup(VisualSource & source){
 	this->source = &source;
 }
 

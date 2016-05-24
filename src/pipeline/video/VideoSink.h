@@ -9,7 +9,7 @@
 #define VIDEOSINK_H_
 
 #include "VideoFrame.h"
-#include "VideoSource.h"
+#include "VisualSource.h"
 
 namespace ofxPm{
 class VideoSink{

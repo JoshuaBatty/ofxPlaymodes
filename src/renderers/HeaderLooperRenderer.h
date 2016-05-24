@@ -4,7 +4,7 @@
 #define HEADERLOOPERRENDERER_H_
 
 #include "VideoSink.h"
-#include "VideoSource.h"
+#include "VisualSource.h"
 #include "VideoHeader.h"
 
 namespace ofxPm
@@ -26,7 +26,7 @@ public:
 private:
 	VideoBuffer*		vBuffer;
 	VideoHeader			vHeader;
-	//VideoSource*		source;
+	//VisualSource*		source;
 };
 //------------------------------------------------------
 

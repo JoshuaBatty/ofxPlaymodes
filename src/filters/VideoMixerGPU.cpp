@@ -41,7 +41,7 @@ VideoMixerGPU::~VideoMixerGPU() {
 	// TODO Auto-generated destructor stub
 }
 
-void VideoMixerGPU::setup(VideoSource & _source1, VideoSource & _source2){
+void VideoMixerGPU::setup(VisualSource & _source1, VisualSource & _source2){
     source1 = &_source1;
 	source2 = &_source2;
 	front = VideoFrame::newVideoFrame(_source1.getNextVideoFrame());

@@ -8,12 +8,12 @@
 #ifndef FILEGRABBER_H_
 #define FILEGRABBER_H_
 
-#include "VideoSource.h"
+#include "VisualSource.h"
 #include "ofMain.h"
 
 
 namespace ofxPm{
-    class FileGrabber: public VideoSource, public ofVideoPlayer {
+    class FileGrabber: public VisualSource, public ofVideoPlayer {
 public:
 	FileGrabber();
 	virtual ~FileGrabber();

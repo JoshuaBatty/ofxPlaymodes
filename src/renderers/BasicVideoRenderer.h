@@ -9,7 +9,7 @@
 #define BASICVIDEORENDERER_H_
 
 #include "VideoSink.h"
-#include "VideoSource.h"
+#include "VisualSource.h"
 #include "VideoHeader.h"
 
 namespace ofxPm
@@ -18,16 +18,16 @@ namespace ofxPm
 class BasicVideoRenderer: public VideoSink {
 public:
 	BasicVideoRenderer();
-	BasicVideoRenderer(VideoSource & source);
+	BasicVideoRenderer(VisualSource & source);
 	virtual ~BasicVideoRenderer();
 
-	void setup(VideoSource & source);
+	void setup(VisualSource & source);
 
 	void draw();
 	void draw(int x,int y,int w,int h);
 
 private:
-	VideoSource * source;
+	VisualSource * source;
 };
 }
 #endif /* BASICVIDEORENDERER_H_ */
